@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
 from pathlib import Path
 
 from environs import Env
@@ -32,7 +31,7 @@ DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = []
 
-
+TOKEN_BOT = env.str('TOKEN_BOT')
 
 # Application definition
 
@@ -43,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bot',
+    'management',
 ]
 
 MIDDLEWARE = [
@@ -78,16 +79,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-DB_NAME = env.str('DB_NAME')
 DATABASES = {
-   	'default': {
-       		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       		 'NAME': f'{DB_NAME}',
-       		 'USER': 'fit_user',
-       		 'PASSWORD': 'password',
-      		 'HOST': 'localhost',
-       		 'PORT': '',
-   	}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+    }
 }
 
 
